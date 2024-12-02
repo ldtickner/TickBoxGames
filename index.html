@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #162836;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(180deg, orange,orange, magenta);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .timer {
+            font-size: 1.5em;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">Tick Box Games</div>
+    <h1>Domain expiery date</h1>
+    <div class="timer" id="timer">Loading...</div>
+    <div><p>We have this domain for 12 months so better get to work on our board game ideas</p></div>
+
+    <script>
+        // Function to format the date as DD MMMM YYYY
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'long', year: 'numeric' };
+            return new Intl.DateTimeFormat('en-GB', options).format(date);
+        }
+
+        function updateCountdown(targetDate) {
+            const now = new Date();
+            const target = new Date(targetDate);
+            const timeDifference = target - now;
+
+            if (timeDifference <= 0) {
+                document.getElementById('timer').innerText = "The target date has arrived!";
+                return;
+            }
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            document.getElementById('timer').innerText = 
+                `${days} day(s) left until ${formatDate(target)}`;
+        }
+
+        // Target date in the format YYYY-MM-DD
+        const targetDate = "2025-11-19";
+
+        // Update the countdown every second
+        setInterval(() => updateCountdown(targetDate), 1000);
+
+        // Initial update
+        updateCountdown(targetDate);
+    </script>
+</body>
+</html>
